@@ -1,1 +1,5 @@
-
+#include <stdio.h> #include <stdlib.h> #include <string.h> 
+typedef struct student {     int id;    char name[20];     int age;    char sex;     struct student *next; }*LinkList,*pNode;
+LinkList GetEmptyList(){    LinkList head = (pNode)malloc(sizeof(struct student));     head->next = NULL;     return head; }
+void AddNode(LinkList head, pNode newnode){     newnode->next = head->next;     head->next = newnode;}
+}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
