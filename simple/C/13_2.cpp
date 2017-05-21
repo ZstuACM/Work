@@ -22,7 +22,7 @@ int main()
 				break;
 			}
 	}
-	if (!flag) printf("查无此数\n");
+	if (!flag) printf("虏茅脦脼麓脣脢媒\n");
 	else 
 		for (int i=0;i<max-flag;i++)
 			printf("%d ",*(p+i));
