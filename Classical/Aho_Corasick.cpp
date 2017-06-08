@@ -5,17 +5,17 @@
 using namespace std;
 
 typedef struct node{
-    struct node *next[26];  //½ÓÊÕµÄÌ¬
-    struct node *par;   //¸¸Ç×½Úµã
-    struct node *fail;  //Ê§°Ü½Úµã
+    struct node *next[26];  //æ¥æ”¶çš„æ€
+    struct node *par;   //çˆ¶äº²èŠ‚ç‚¹
+    struct node *fail;  //å¤±è´¥èŠ‚ç‚¹
     char inputchar;
-    int patterTag;    //ÊÇ·ñÎª¿É½ÓÊÕÌ¬
-    int patterNo;   //½ÓÊÕÌ¬¶ÔÓ¦µÄ¿É½ÓÊÜÄ£Ê½
+    int patterTag;    //æ˜¯å¦ä¸ºå¯æ¥æ”¶æ€
+    int patterNo;   //æ¥æ”¶æ€å¯¹åº”çš„å¯æ¥å—æ¨¡å¼
 }*Tree,TreeNode;
 char pattern[4][30]={"nihao","hao","hs","hsr"};
 
 /**
-ÉêÇëĞÂµÄ½Úµã£¬²¢½øĞĞ³õÊ¼»¯
+ç”³è¯·æ–°çš„èŠ‚ç‚¹ï¼Œå¹¶è¿›è¡Œåˆå§‹åŒ–
 */
 TreeNode *getNewNode()
 {
@@ -30,7 +30,7 @@ TreeNode *getNewNode()
 }
 
 /**
-½«TrieÊ÷ÖĞ£¬root½ÚµãµÄ·ÖÖ§½Úµã£¬·ÅÈë¶ÓÁĞ
+å°†Trieæ ‘ä¸­ï¼ŒrootèŠ‚ç‚¹çš„åˆ†æ”¯èŠ‚ç‚¹ï¼Œæ”¾å…¥é˜Ÿåˆ—
 */
 int  nodeToQueue(Tree root,queue<Tree> &myqueue)
 {
@@ -44,7 +44,7 @@ int  nodeToQueue(Tree root,queue<Tree> &myqueue)
 }
 
 /**
-½¨Á¢trieÊ÷
+å»ºç«‹trieæ ‘
 */
 Tree buildingTree()
 {
@@ -54,9 +54,9 @@ Tree buildingTree()
     for(i=0;i<4;i++)
     {
         tmp1=root;
-        for(j=0;j<strlen(pattern[i]);j++)   ///¶ÔÃ¿¸öÄ£Ê½½øĞĞ´¦Àí
+        for(j=0;j<strlen(pattern[i]);j++)   ///å¯¹æ¯ä¸ªæ¨¡å¼è¿›è¡Œå¤„ç†
         {
-            if(tmp1->next[pattern[i][j]-'a']==NULL) ///ÊÇ·ñÒÑ¾­ÓĞ·ÖÖ§£¬Trie¹²ÓÃ½Úµã
+            if(tmp1->next[pattern[i][j]-'a']==NULL) ///æ˜¯å¦å·²ç»æœ‰åˆ†æ”¯ï¼ŒTrieå…±ç”¨èŠ‚ç‚¹
             {
                 tmp2=getNewNode();
                 tmp2->inputchar=pattern[i][j];
@@ -74,7 +74,7 @@ Tree buildingTree()
 }
 
 /**
-½¨Á¢Ê§°ÜÖ¸Õë
+å»ºç«‹å¤±è´¥æŒ‡é’ˆ
 */
 int buildingFailPath(Tree root)
 {
@@ -82,7 +82,7 @@ int buildingFailPath(Tree root)
     char inputchar;
     queue<Tree> myqueue;
     root->fail=root;
-    for(i=0;i<26;i++)   ///¶ÔrootÏÂÃæµÄµÚ¶ş²ã½øĞĞÌØÊâ´¦Àí
+    for(i=0;i<26;i++)   ///å¯¹rootä¸‹é¢çš„ç¬¬äºŒå±‚è¿›è¡Œç‰¹æ®Šå¤„ç†
     {
         if (root->next[i]!=NULL)
         {
@@ -124,7 +124,7 @@ int buildingFailPath(Tree root)
 }
 
 /**
-½øĞĞ¶àÄ£Ê½ËÑË÷£¬¼´ËÑÑ°AC×Ô¶¯»ú
+è¿›è¡Œå¤šæ¨¡å¼æœç´¢ï¼Œå³æœå¯»ACè‡ªåŠ¨æœº
 */
 int searchAC(Tree root,char* str,int len)
 {
@@ -136,7 +136,7 @@ int searchAC(Tree root,char* str,int len)
         if (tmp->next[pos]!=NULL)
         {
             tmp=tmp->next[pos];
-            if(tmp->patterTag==1)    ///Èç¹ûÎª½ÓÊÕÌ¬
+            if(tmp->patterTag==1)    ///å¦‚æœä¸ºæ¥æ”¶æ€
             {
                 cout<<i-strlen(pattern[tmp->patterNo])+1<<'\t'<<tmp->patterNo<<'\t'<<pattern[tmp->patterNo]<<endl;
             }
@@ -149,7 +149,7 @@ int searchAC(Tree root,char* str,int len)
             else
             {
                 tmp=tmp->fail;
-                if(tmp->patterTag==1)    //Èç¹ûÎª½ÓÊÕÌ¬
+                if(tmp->patterTag==1)    //å¦‚æœä¸ºæ¥æ”¶æ€
                     cout<<i-strlen(pattern[tmp->patterNo])+1<<'\t'<<tmp->patterNo<<'\t'<<pattern[tmp->patterNo]<<endl;
             }
         }
@@ -164,7 +164,7 @@ int searchAC(Tree root,char* str,int len)
 }
 
 /**
-ÊÍ·ÅÄÚ´æ£¬DFS
+é‡Šæ”¾å†…å­˜ï¼ŒDFS
 */
 int destory(Tree tree)
 {
@@ -193,12 +193,12 @@ int destory(Tree tree)
 int main()
 {
     char a[]="sdmfhsgnshejfgnihaofhsrnihao";
-    Tree root=buildingTree();   ///½¨Á¢TrieÊ÷
-    buildingFailPath(root); ///Ìí¼ÓÊ§°Ü×ªÒÆ
-    cout<<"´ıÆ¥Åä×Ö·û´®£º"<<a<<endl;
-    cout<<"Ä£Ê½"<<pattern[0]<<" "<<pattern[1]<<" "<<pattern[2]<<" "<<pattern[3]<<" "<<endl<<endl;
-    cout<<"Æ¥Åä½á¹ûÈçÏÂ£º"<<endl<<"Î»ÖÃ\t"<<"±àºÅ\t"<<"Ä£Ê½"<<endl;
-    searchAC(root,a,strlen(a)); ///ËÑË÷
-    destory(root);  ///ÊÍ·Å¶¯Ì¬ÉêÇëÄÚ´æ
+    Tree root=buildingTree();   ///å»ºç«‹Trieæ ‘
+    buildingFailPath(root); ///æ·»åŠ å¤±è´¥è½¬ç§»
+    cout<<"å¾…åŒ¹é…å­—ç¬¦ä¸²ï¼š"<<a<<endl;
+    cout<<"æ¨¡å¼"<<pattern[0]<<" "<<pattern[1]<<" "<<pattern[2]<<" "<<pattern[3]<<" "<<endl<<endl;
+    cout<<"åŒ¹é…ç»“æœå¦‚ä¸‹ï¼š"<<endl<<"ä½ç½®\t"<<"ç¼–å·\t"<<"æ¨¡å¼"<<endl;
+    searchAC(root,a,strlen(a)); ///æœç´¢
+    destory(root);  ///é‡Šæ”¾åŠ¨æ€ç”³è¯·å†…å­˜
     return 0;
 }
